@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Number guessing game</title>
 
     <style>
@@ -11,7 +11,7 @@
       }
 
       body {
-        width: 50%;
+        width: 75%;
         max-width: 800px;
         min-width: 480px;
         margin: 0 auto;
@@ -24,15 +24,28 @@
       .guessField{
         border: 2px, black, solid;
         border-radius: 6px;
-        height: 20px;
+        
+        font-size: 25px;
       }
       .guessSubmit{
-        height: 25px;
+        height: 40px;
         font-family: cursive;
         background-color: hsl(183, 51%, 30%);
         color: hsl(189, 41%, 97%);
         border: none;
+        font-size: 18px;
         border-radius: 6px;
+        width: 100px;
+        text-align: center;
+      }
+      h3{
+        font-weight: 200;
+        font-style: italic;
+      }
+      @media screen and (max-width:770px) {
+        .form{
+          display: inline-block;
+        }
       }
 
     </style>
@@ -45,8 +58,8 @@
     <p>Nous avons Selectionné un nombre entre 1 et 100. voyez si vous pouvez le devinez en 10 tour au moins. Nous vous dirons si votre estimation était trop elevée ou trop faible </p>
 
     <div class="form">
-      <label for="guessField">Entrez une estimation: </label>
-      <input type="text" id="guessField" class="guessField">
+      <label for="guessField"> <h3>Entrez une estimation:</h3> </label>
+      <input type="text" id="guessField" class="guessField"> <br> <br>
       <input type="submit" value="Valider" class="guessSubmit" id="guessSubmit" >
     </div>
 
@@ -108,6 +121,9 @@ function checkGuess(){
      resetButton.style.color='white'
      resetButton.style.borderColor='hsl(183, 51%, 30%)';
      resetButton.style.borderRadius='5px';
+     resetButton.style.fontSize='18px';
+     resetButton.style.width='100px';
+     resetButton.style.height='40px';
      resetButton.textContent="Rejouer";
      document.body.appendChild(resetButton); //On place le button creer dans la div resultParas du body grace à appendChild
      resetButton.addEventListener('click', resetGame);
