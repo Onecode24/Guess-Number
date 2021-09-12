@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>Number guessing game</title>
+
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+
+      body {
+        width: 50%;
+        max-width: 800px;
+        min-width: 480px;
+        margin: 0 auto;
+      }
+
+      .lastResult {
+        color: white;
+        padding: 3px;
+      }
+      .guessField{
+        border: 2px, black, solid;
+        border-radius: 6px;
+        height: 20px;
+      }
+      .guessSubmit{
+        height: 25px;
+        font-family: cursive;
+        background-color: hsl(183, 51%, 30%);
+        color: hsl(189, 41%, 97%);
+        border: none;
+        border-radius: 6px;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+    <h1>Jeux de devinettes du nombres</h1>
+
+    <p>Nous avons Selectionné un nombre entre 1 et 100. voyez si vous pouvez le devinez en 10 tour au moins. Nous vous dirons si votre estimation était trop elevée ou trop faible </p>
+
+    <div class="form">
+      <label for="guessField">Entrez une estimation: </label>
+      <input type="text" id="guessField" class="guessField">
+      <input type="submit" value="Valider" class="guessSubmit" id="guessSubmit" >
+    </div>
+
+    <div class="resultParas">
+      <p class="guesses"></p>
+      <p class="lastResult"></p>
+      <p class="lowOrHi"></p>
+    </div>
+    
+    <script>
+       
+      let guessField = document.querySelector('.guessField');
+      let guessSubmit = document.querySelector('.guessSubmit');
+      let guesses = document.querySelector('.guesses');
+      let lastResult = document.querySelector('.lastResult');
+      let lowOrHi = document.querySelector('.lowOrHi');
+      let guessCount=1;
+      let randomNumber=Math.floor(Math.random()*100)+1;
+      let resetButton
+
+function checkGuess(){
+  let userGuess=Number(guessField.value);
+  if(guessCount===1){
+          guesses.textContent='proposition precedente: '; 
+          /*Si il s'agit de la premiere proposition alors on affiche proposition precedente*/
+      }
+      guesses.textContent+=userGuess+' ';// ici chaque fois que la fonction est executer alors le nombre enregistrer est afficher à la suite des autre
+      if(userGuess===randomNumber){
+          lastResult.textContent='Bravo vous avez réussi.';
+          lastResult.style.backgroundColor='green'
+          lowOrHi.textContent=' '
+          setGameOver();
+      }
+      else if(guessCount===10){
+          lastResult.textContent='!!! PERDU !!!';
+          setGameOver();
+      }
+      else{
+          lastResult.textContent='Faux !';
+          lastResult.style.backgroundColor='red';
+          if(userGuess<randomNumber){
+              lowOrHi.textContent='Le nombre saisi est trop petit !';
+          }else if(userGuess>randomNumber){
+              lowOrHi.textContent='Le nombre saisi est trop grand !';
+          }
+      }
+      guessCount++;
+      guessField.value = '';
+      guessField.focus();
+}
+   guessSubmit.addEventListener('click', checkGuess)  
+   function setGameOver(){
+     guessSubmit.disabled=true;
+     guessField.disabled=true;
+     resetButton=document.createElement('button'); // Cree un bouton auquel on n'a attribuer une variable
+     resetButton.style.fontSize='15px';
+     resetButton.style.fontFamily='cursive';
+     resetButton.style.background='hsl(183, 51%, 30%)';
+     resetButton.style.color='white'
+     resetButton.style.borderColor='hsl(183, 51%, 30%)';
+     resetButton.style.borderRadius='5px';
+     resetButton.textContent="Rejouer";
+     document.body.appendChild(resetButton); //On place le button creer dans la div resultParas du body grace à appendChild
+     resetButton.addEventListener('click', resetGame);
+   }
+   function resetGame(){
+     guessSubmit.disabled=false;
+     guessField.disabled=false;
+     guessCount=1;
+     lowOrHi.textContent='';
+     lastResult.textContent='';
+     guesses.textContent='';
+     guessField.value='';
+     guessField.focus();
+     lastResult.style.backgroundColor='white';
+     randomNumber=Math.floor(Math.random()*100)+1;
+     resetButton.parentNode.removeChild(resetButton);
+
+   }
+      
+  </script>
+    
+  </body>
+</html>
