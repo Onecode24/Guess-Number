@@ -55,15 +55,39 @@
           margin: 25px;
         }
       }
+      #level{
+        font-size: 20px;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        background-color: whitesmoke;
+        border: none;
+        border-radius: 6px;
+      }
+      pl{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 23px;
+      }
+      section{
+        margin-top: 20px;
+      }
 
     </style>
 
   </head>
 
   <body>
+    <section>
+      <pl>Level : </pl><select name="level" id="level">
+        <option value="val1">Easy</option>
+        <option value="val2">Medium</option>
+        <option value="val3">High</option>
+      </select>
+    </section>
     <h1>Jeux de devinettes du nombres</h1>
 
-    <p>Nous avons Selectionné un nombre entre 1 et 100. voyez si vous pouvez le devinez en 10 tour au moins. Nous vous dirons si votre estimation était trop elevée ou trop faible </p>
+    <p>Nous avons selectionné un nombre entre 1 et 100 pour le niveau facile, 1 et 500 pour le niveau moyen
+       et entre 1 et 1000 pour le niveau difficile. Voyez si vous pouvez le devinez en 10 tour pour le niveau facile
+       15 tour pour le niveau moyen et 25 pour le niveau difficile au moins. <br> Nous vous dirons si votre estimation
+        était trop elevée ou trop faible </p>
 
     <div class="form">
       <label for="guessField"> <h3>Entrez une estimation:</h3> </label>
@@ -85,8 +109,26 @@
       let lastResult = document.querySelector('.lastResult');
       let lowOrHi = document.querySelector('.lowOrHi');
       let guessCount=1;
-      let randomNumber=Math.floor(Math.random()*100)+1;
       let resetButton
+      let level=document.querySelector('#level');
+      var sup=0;
+      var num=0;
+
+      if(level.value=="val1"){
+        sup=100;
+        num=10;
+      }else if(level.value=="val2"){
+        sup=500;
+        num=50;
+      }else if(level.value=="val3"){
+        sup=1000;
+        num=100;
+      }else{
+        sup=100;
+        num=10;
+      }
+
+      let randomNumber=Math.floor(Math.random()*sup)+1;
 
 function checkGuess(){
   let userGuess=Number(guessField.value);
@@ -101,7 +143,7 @@ function checkGuess(){
           lowOrHi.textContent=' '
           setGameOver();
       }
-      else if(guessCount===10){
+      else if(guessCount===num){
           lastResult.textContent='!!! PERDU !!!';
           setGameOver();
       }
@@ -145,7 +187,7 @@ function checkGuess(){
      guesses.textContent='';
      guessField.value='';
      guessField.focus();
-     lastResult.style.backgroundColor='white';
+     lastResult.style.backgroundColor='rgb(182, 228, 240)';
      randomNumber=Math.floor(Math.random()*100)+1;
      resetButton.parentNode.removeChild(resetButton);
 
