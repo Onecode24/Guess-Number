@@ -34,7 +34,7 @@
       }
       .guessSubmit{
         height: 40px;
-        font-family: cursive;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
         background-color: hsl(183, 51%, 30%);
         color: hsl(189, 41%, 97%);
         border: none;
@@ -54,6 +54,7 @@
         body{
           margin: 25px;
         }
+        
       }
       #level{
         font-size: 20px;
@@ -84,10 +85,7 @@
     </section>
     <h1>Jeux de devinettes du nombres</h1>
 
-    <p>Nous avons selectionné un nombre entre 1 et 100 pour le niveau facile, 1 et 500 pour le niveau moyen
-       et entre 1 et 1000 pour le niveau difficile. Voyez si vous pouvez le devinez en 10 tour pour le niveau facile
-       15 tour pour le niveau moyen et 25 pour le niveau difficile au moins. <br> Nous vous dirons si votre estimation
-        était trop elevée ou trop faible </p>
+    <p class="guide"></p>
 
     <div class="form">
       <label for="guessField"> <h3>Entrez une estimation:</h3> </label>
@@ -111,21 +109,28 @@
       let guessCount=1;
       let resetButton
       let level=document.querySelector('#level');
+      let guide = document.querySelector('.guide');
       var sup=0;
       var num=0;
 
       if(level.value=="val1"){
         sup=100;
         num=10;
+        guide.innerHTML='Pour ce niveau facile un nombre selectionner entre 1 et 100. Voyez si vous pouvez le deviner an 10 tours au moins. Nous vous dirons si votre estimation est trop élevé ou trop faible';
       }else if(level.value=="val2"){
         sup=500;
         num=15;
+        guide.innerHTML='Pour ce niveau facile un nombre selectionner entre 1 et 500. Voyez si vous pouvez le deviner an 15 tours au moins. Nous vous dirons si votre estimation est trop élevé ou trop faible';
+
       }else if(level.value=="val3"){
         sup=1000;
         num=25;
+        guide.innerHTML='Pour ce niveau facile un nombre selectionner entre 1 et 1000. Voyez si vous pouvez le deviner an 25 tours au moins. Nous vous dirons si votre estimation est trop élevé ou trop faible';
+
       }else{
         sup=100;
         num=10;
+        guide.innerHTML='Pour ce niveau facile un nombre selectionner entre 1 et 100. Voyez si vous pouvez le deviner an 10 tours au moins. Nous vous dirons si votre estimation est trop élevé ou trop faible';
       }
 
       let randomNumber=Math.floor(Math.random()*sup)+1;
@@ -166,7 +171,7 @@ function checkGuess(){
      guessField.disabled=true;
      resetButton=document.createElement('button'); // Cree un bouton auquel on n'a attribuer une variable
      resetButton.style.fontSize='15px';
-     resetButton.style.fontFamily='cursive';
+     resetButton.style.fontFamily='Verdana, Geneva, Tahoma, sans-serif';
      resetButton.style.background='hsl(183, 51%, 30%)';
      resetButton.style.color='white'
      resetButton.style.borderColor='hsl(183, 51%, 30%)';
